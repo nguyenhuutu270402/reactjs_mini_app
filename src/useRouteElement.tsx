@@ -1,13 +1,19 @@
 import React from 'react'
 import { useRoutes } from 'react-router-dom'
 
-const LazyLogin = React.lazy(() => import('./pages/Home'))
+const LazyHome = React.lazy(() => import('./pages/Home'))
+const LazyDetail = React.lazy(() => import('./pages/Detail'))
+
 
 export default function useRouteElement() {
   const routeElement = useRoutes([
     {
       path: "/",
-      element: <LazyLogin />
+      element: <LazyHome />
+    },
+    {
+      path: "/detail/:id",
+      element: <LazyDetail />
     },
 
   ])
