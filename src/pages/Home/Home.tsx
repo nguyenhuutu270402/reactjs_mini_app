@@ -9,11 +9,11 @@ import icSearch from "src/assets/ic_search.png"
 import logoShopaa from "src/assets/ic_shopaa.png"
 import icCart from "src/assets/ic_cart.png"
 import icFilter from "src/assets/ic_filter.png"
-import imgLayer from "src/assets/img_layer.png"
-
 import { useEffect, useState } from "react"
 import storeAPI from "src/services/store.api"
 import ItemFilter from "src/conponents/ItemFilter"
+import ItemProduct from "src/conponents/ItemProduct"
+import { Product } from "src/types/util.type"
 
 
 
@@ -21,9 +21,13 @@ import ItemFilter from "src/conponents/ItemFilter"
 
 function Home() {
   const [listCategory, setListCategory] = useState<string[]>([])
+  const [listProduct, setListProduct] = useState<Product[]>([])
+
   const fetchData = async () => {
     const res1 = await storeAPI.getAllCategory();
+    const res2 = await storeAPI.getAllProduct();
     setListCategory(res1);
+    setListProduct(res2);
   }
   useEffect(() => {
     fetchData();
@@ -104,7 +108,8 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row w-[1200px] mx-auto">
+
+      <div className="flex flex-row w-[1200px] mx-auto my-[32px]">
         <div className="w-[190px]">
           <div className="flex flex-row items-center gap-[8px]">
             <img className="w-[16px] h-[16px] object-contain" src={icFilter} alt="icFilter" />
@@ -117,36 +122,20 @@ function Home() {
             ))
           }
         </div>
-        <div className="flex flex-col flex-1 bg-black ml-[24px]">
-          <div className="grid grid-cols-5 gap-[16px] justify-items-center">
-            <div className="bg-red-500 w-[100%] aspect-[1]"></div>
-
-
-            <div className="flex flex-col bg-white aspect-[0.5] w-[100%]">
-              <div className="w-[100%] aspect-[1] flex relative">
-                <img className="w-[100%] aspect-[1] object-contain" src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" alt="nameee" />
-                <img className="w-[100%] aspect-[1] object-contain flex absolute" src={imgLayer} alt="nameee" />
-
-              </div>
-              <div className="px-[8px] py-[8px]">
-                <div className="text-[#000] text-[13px] line-clamp-2">Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-                <div className="">đ</div>
-              </div>
-            </div>
-
-
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
-            <div className="bg-red-500 h-[200px] w-[100%]"></div>
+        <div className="flex flex-col flex-1">
+          <div className="grid grid-cols-5 gap-[12px] justify-items-center">
+            {
+              listProduct.map((item, index) => (
+                <ItemProduct data={item} key={index} />
+              ))
+            }
           </div>
         </div>
+      </div>
+
+      <div className="w-[1200px] mx-auto">
+        <div className="w-full h-[1px] bg-[#0000008A]" />
+        <div className="text-[#0000008A] text-[16px] py-[24px]">© 2024 Shopaa. All Rights Reserved .</div>
       </div>
     </main>
   )

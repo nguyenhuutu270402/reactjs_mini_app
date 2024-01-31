@@ -73,3 +73,7 @@ body ::-webkit-scrollbar-track {
     transform: rotate(0.5turn);
   }
 }
+
+.shadow-custom {
+  box-shadow: 0px 0px 3px rgb(0, 0, 0, 0.5);
+}
