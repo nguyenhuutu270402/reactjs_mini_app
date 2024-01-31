@@ -15,6 +15,11 @@ const storeAPI = {
         })
         return res.data
     },
+    getOneProduct: async (id: number) => {
+        const res = await http.get<Product>(`/products/${id}`, {
+        })
+        return res.data
+    },
 
 }
 
